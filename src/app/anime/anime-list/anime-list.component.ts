@@ -12,12 +12,24 @@ export class AnimeListComponent implements OnInit {
   selectedBAnime!: Anime;
   selected = false;
   animes: Array<Anime> = [];
-  constructor(private animeService: AnimeService) { }
+  numberEpisodes: number = 0;
 
+  constructor(private animeService: AnimeService) { }
+  
   getAnimes(): void {
     this.animeService.getAnimes().subscribe((animes) => {
       this.animes = animes;
     });
+  }
+  
+ 
+  getNumberEpisodes(): number {
+    let suma = 0;
+    this.animes.forEach(anime => {
+      console.log(anime.episode)
+      suma = anime.episode + suma
+    });
+    return suma;
   }
 
   onSelected(anime: Anime): void {
@@ -26,7 +38,7 @@ export class AnimeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAnimes();
+    this.getAnimes();  
   }
 
 }
